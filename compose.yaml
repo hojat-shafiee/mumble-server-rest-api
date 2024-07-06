@@ -1,0 +1,23 @@
+services:
+  mumble-server:
+    image: mumblevoip/mumble-server:latest
+    container_name: mumble-server
+    hostname: mumble-server
+    restart: on-failure
+    volumes:
+     - ./data/:/home/
+    environment:
+     - MUMBLE_CUSTOM_CONFIG_FILE=/home/mumble-server.ini
+    ports:
+      - 6502:6502
+      - 64738:64738
+      - 64738:64738/udp
+  # mumble-rest-api:
+  #   build: .
+  #   environment:
+  #     - MURMUR_ICE_HOST=0.0.0.0
+  #     - MURMUR_ICE_PORT=6502
+  #   ports:
+  #     - "2332:2332"
+volumes:
+  data:
