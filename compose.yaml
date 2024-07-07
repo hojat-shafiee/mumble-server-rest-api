@@ -1,23 +1,31 @@
 services:
-  mumble-server:
-    image: mumblevoip/mumble-server:latest
-    container_name: mumble-server
-    hostname: mumble-server
-    restart: on-failure
-    volumes:
-     - ./data/:/home/
-    environment:
-     - MUMBLE_CUSTOM_CONFIG_FILE=/home/mumble-server.ini
-    ports:
-      - 6502:6502
-      - 64738:64738
-      - 64738:64738/udp
-  # mumble-rest-api:
-  #   build: .
+  # mumble-server:
+  #   image: mumblevoip/mumble-server:latest
+  #   container_name: mumble-server
+  #   hostname: mumble-server
+  #   restart: on-failure
   #   environment:
-  #     - MURMUR_ICE_HOST=0.0.0.0
-  #     - MURMUR_ICE_PORT=6502
+  #     - MUMBLE_CONFIG_ICE= tcp -h 0.0.0.0 -p 6502
+  #     - MUMBLE_CONFIG_PORT= 50000
+  #     - MUMBLE_CONFIG_OPUSTHRESHOLD= 0
+  #     - MUMBLE_CONFIG_USERS= 100
+  #     - MUMBLE_CONFIG_USERSPERCHANNEL= 10
+  #     - MUMBLE_CONFIG_WELCOMETEXT= 'RestApiMumble'
+  #   expose:
+  #     - 6502
   #   ports:
-  #     - "2332:2332"
+  #     - "127.0.0.1:6502:6502"
+  #     - "50000-50050:50000-50050"
+  #     - "50000-50050:50000-50050/udp"
+  mumble-rest-api:
+    build: .
+    environment:
+      - MURMUR_ICE_HOST= your mumble server address
+      - MURMUR_ICE_PORT= 6502
+    ports:
+      - "2332:2332"
+    # links:
+    #   - "mumble-server:server"
+    restart: on-failure
 volumes:
-  data:
+  data: 

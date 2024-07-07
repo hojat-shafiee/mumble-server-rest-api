@@ -31,4 +31,4 @@ RUN apt-get autoremove -y build-essential && \
 
 ADD . /opt/mumble-rest
 
-CMD ["/opt/mumble-rest/venv/bin/uvicorn", "main:app", "--host", "0.0.0.0", "--port", "2332"]
+CMD ["/opt/mumble-rest/venv/bin/uvicorn", "main:mumble_rest", "--host", "0.0.0.0", "--port", "2332"]
