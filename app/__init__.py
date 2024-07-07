@@ -12,6 +12,9 @@ _data.properties = _props
 _communicator = Ice.initialize(_data)
 
 _proxy = _communicator.stringToProxy(settings.ICE_HOST)
+secret = settings.ICE_SECRET
+if secret != '':
+    _communicator.getImplicitContext().put("secret", secret)
 meta = Murmur.MetaPrx.checkedCast(_proxy)
 if not meta:
     raise RuntimeError("Invalid proxy")

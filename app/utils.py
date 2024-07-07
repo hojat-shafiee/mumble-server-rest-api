@@ -28,3 +28,20 @@ def get_all_users_count(meta):
     for s in meta.getAllServers():
         user_count += (s.isRunning() and len(s.getUsers())) or 0
     return user_count
+
+def obj_to_dict(obj):
+    """
+    Used for converting objects from Murmur.ice into python dict.
+    """
+    rv = {'_type': str(type(obj))}
+
+    if isinstance(obj, (bool, int, float, str)):
+        return obj
+
+    if type(obj) in (list, tuple):
+        return [obj_to_dict(item) for item in obj]
+
+    if type(obj) == dict:
+        return dict((str(k), obj_to_dict(v)) for k, v in obj.items())
+
+    return obj_to_dict(obj.__dict__)
