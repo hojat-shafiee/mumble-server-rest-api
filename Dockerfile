@@ -5,7 +5,7 @@ ENV LANG=C.UTF-8
 
 WORKDIR /opt/mumble-rest
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
     build-essential \
